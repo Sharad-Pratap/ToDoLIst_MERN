@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #dateBar{
+            position: absolute;
+            top: 10%;
+            max-width: 500px;
+            padding: 12px 40px;
+            background-color: #4dbdf1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        #container {
+            max-width: 500px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+       
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        form .item {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Add space between text and delete button */
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .task-text {
+            flex-grow: 1;
+            font-size: 18px;
+        }
+
+        .delete-button {
+            background-color: #FF4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="dateBar">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+    <div id="container">
+        <h1>To-Do List</h1>
+        <form class="item" action="/" method="post">
+            <input type="text" name="newItem" placeholder="Add a task">
+            <button type="submit" name="list" value="<%= listTitle  %>" >Add</button>
+        </form>
+        <ul>
+            
+            <% newListItems.forEach(Item => { %>
+                <form action="/delete" method="post">
+                    <li>
+                        <input type="checkbox" name="checkbox" value="<%= Item._id %>" onChange="this.form.submit()" />
+                        <span class="task-text"><%= Item.name %></span>
+                    </li>
+                    <input type="hidden" name="listName" value= "<%= listTitle %>" /> 
+                </form>
+                
+           <% });  %> 
+        </ul>
+    </div>
+</body>
+</html>
+<!--! this for loop version of forEach  -->
+<%# for (let i = 0; i < newListItems.length; i++) { %>
+    <!-- <li>
+        <input type="checkbox" name="check" />
+        <span class="task-text"><%# newListItems[i].name %></span>
+    </li> -->
+    <%# } %>
